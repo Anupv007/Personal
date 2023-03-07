@@ -15,8 +15,7 @@
 	<meta property="og:locale" content="en_US" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Anup Verma - Web Developer" />
-	<meta property="og:description"
-		content="I am Creative Web Developer providing high-impact web solutions for diverse
+	<meta property="og:description" content="I am Creative Web Developer providing high-impact web solutions for diverse
 		industry organizations." />
 	<meta property="og:url" content="http://anupverma.live/" />
 	<meta property="og:site_name" content="Anup Verma" />
@@ -58,6 +57,57 @@
 </head>
 
 <body>
+
+
+
+	<h1>JsQRScanner example</h1>
+	<div class="row-element">
+		<div class="FlexPanel detailsPanel QRScannerShort">
+			<div class="FlexPanel shortInfoPanel">
+				<div class="gwt-HTML">
+					Point the webcam to a QR code.
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="row-element">
+		<div class="qrscanner" id="scanner">
+		</div>
+	</div>
+	<div class="row-element">
+		<div class="form-field form-field-memo">
+			<div class="form-field-caption-panel">
+				<div class="gwt-Label form-field-caption">
+					Scanned text
+				</div>
+			</div>
+			<div class="FlexPanel form-field-input-panel">
+				<textarea id="scannedTextMemo" class="textInput form-memo form-field-input textInput-readonly" rows="3"
+					readonly>
+            </textarea>
+			</div>
+		</div>
+		<div class="form-field form-field-memo">
+			<div class="form-field-caption-panel">
+				<div class="gwt-Label form-field-caption">
+					Scanned text history
+				</div>
+			</div>
+			<div class="FlexPanel form-field-input-panel">
+				<textarea id="scannedTextMemoHist" class="textInput form-memo form-field-input textInput-readonly"
+					value="" rows="6" readonly>
+            </textarea>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
 	<div class="background">
 		<header class="row">
 			<!-- new navbar -->
@@ -90,7 +140,7 @@
 			<img class="hero-image" src="resources/images/Website.svg" alt="website designer">
 			<div class="hero-text-box">
 				<span class="top-tags">
-					<&#72;tml><br>
+					<&#72;<br>
 				</span>
 				<h1>hi,<br> i'm Anup,<br>web developer</h1><br>
 				<div class="hero-box">
@@ -101,7 +151,7 @@
 			</div>
 
 			<!------------ Intro page ------------>
-			<div class="intro">
+			<!-- <div class="intro">
 				<div class="intro-text">
 					<div class="hide">
 						<span class="text">I design and develop</span>
@@ -114,7 +164,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="slider"></div>
+			<div class="slider"></div> -->
 
 			<!-- Intro code End -->
 		</header>
@@ -309,6 +359,80 @@
 	<script src="vendor/js/jquery.waypoints.min.js"></script>
 	<script src="resources/js/script.js"></script>
 	<script src="vendor/js/vanilla-tilt.min.js"></script>
+	<script src="resources/js/jsqrscanner.nocache.js"></script>
+
+
+	<!-- QR Scanner javascript Code  -->
+
+	<script type="text/javascript">
+		function onQRCodeScanned(scannedText) {
+			var scannedTextMemo = document.getElementById("scannedTextMemo");
+			if (scannedTextMemo) {
+				scannedTextMemo.value = scannedText;
+			}
+			var scannedTextMemoHist = document.getElementById("scannedTextMemoHist");
+			if (scannedTextMemoHist) {
+				scannedTextMemoHist.value = scannedTextMemoHist.value + '\n' + scannedText;
+			}
+		}
+
+		function provideVideo() {
+			var n = navigator;
+
+			if (n.mediaDevices && n.mediaDevices.getUserMedia) {
+				return n.mediaDevices.getUserMedia({
+					video: {
+						facingMode: "environment"
+					},
+					audio: false
+				});
+			}
+
+			return Promise.reject('Your browser does not support getUserMedia');
+		}
+
+		function provideVideoQQ() {
+			return navigator.mediaDevices.enumerateDevices()
+				.then(function (devices) {
+					var exCameras = [];
+					devices.forEach(function (device) {
+						if (device.kind === 'videoinput') {
+							exCameras.push(device.deviceId)
+						}
+					});
+
+					return Promise.resolve(exCameras);
+				}).then(function (ids) {
+					if (ids.length === 0) {
+						return Promise.reject('Could not find a webcam');
+					}
+
+					return navigator.mediaDevices.getUserMedia({
+						video: {
+							'optional': [{
+								'sourceId': ids.length === 1 ? ids[0] : ids[1]//this way QQ browser opens the rear camera
+							}]
+						}
+					});
+				});
+		}
+
+		//this function will be called when JsQRScanner is ready to use
+		function JsQRScannerReady() {
+			//create a new scanner passing to it a callback function that will be invoked when
+			//the scanner succesfully scan a QR code
+			var jbScanner = new JsQRScanner(onQRCodeScanned);
+			//var jbScanner = new JsQRScanner(onQRCodeScanned, provideVideo);
+			//reduce the size of analyzed image to increase performance on mobile devices
+			jbScanner.setSnapImageMaxSize(300);
+			var scannerParentElement = document.getElementById("scanner");
+			if (scannerParentElement) {
+				//append the jbScanner to an existing DOM element
+				jbScanner.appendTo(scannerParentElement);
+			}
+		}
+	</script>
+
 </body>
 
 </html>
