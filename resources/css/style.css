@@ -470,7 +470,6 @@ nav.sticky {
 .about-text {
     display: flex;
     align-items: center;
-    width: max-content;
     text-align: center;
     flex-direction: column;
 }
