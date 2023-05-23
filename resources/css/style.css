@@ -136,36 +136,42 @@ ul {
 /* ------- */
 /* Button  */
 /* ------- */
-.btn{
-	display: inline-block;
-	padding: 5px 10px;
-	font-weight: 300;
-	color: #fff;
-	transition: 0.5s;
-	background-size: 200% auto;
-	border: 2px solid #3498db;
-	cursor: pointer;
-    border-radius: 10px;
-}
-.btn:hover {
-	background-position: right center;
-}
-.btn-full {
-	background-image: linear-gradient(to right, #3498db 0%, #53a4da  51%, #0477c4  100%);
-}
-.btn-full:hover {
-	background-position: right center;
-}
-.btn-ghost {
-	color: #3498db;
-	outline: none;
-}
-.btn-ghost:hover{
-	border: 2px solid #fff;
-	color: #fff;
-	background-color: transparent;
-	/* box-shadow: 1px 1px 10px #217dbb; */
-}
+
+.button-74 {
+    background-color: #fbeee0;
+    border: 2px solid #422800;
+    border-radius: 30px;
+    box-shadow: #422800 4px 4px 0 0;
+    color: #422800;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 18px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button-74:hover {
+    background-color: #fff;
+  }
+  
+  .button-74:active {
+    box-shadow: #422800 2px 2px 0 0;
+    transform: translate(2px, 2px);
+  }
+  
+  @media (min-width: 768px) {
+    .button-74 {
+      min-width: 120px;
+      padding: 0 25px;
+    }
+  }
+
 
 /* Header */
 .background {
@@ -408,7 +414,7 @@ nav.sticky {
     align-items: center;
     box-shadow: 5px 5px 20px rgb(221, 221, 221);
     padding: 0 10px;
-    background-color: #CBB0FB;
+    background-color: #cbb4f4d1;
     border-radius: 0 10px 0 10px;
     /* vanila tilt  */
     transform-style: preserve-3d;
